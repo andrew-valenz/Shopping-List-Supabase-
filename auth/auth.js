@@ -1,5 +1,5 @@
 // import services and utilities
-import { getUser, signInUser, signUpUser } from '../fetch-utils.js';
+import { redirectIfLoggedIn, getUser, signInUser, signUpUser } from '../fetch-utils.js';
 
 // If on this /auth page but we have a user, it means
 // user probably navigated here by the url.
@@ -15,6 +15,7 @@ const changeType = authForm.querySelector('a');
 const errorDisplay = authForm.querySelector('.error');
 
 /* let state */
+redirectIfLoggedIn();
 let isSignIn = true;
 
 /* Events */

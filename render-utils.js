@@ -1,11 +1,11 @@
-export function renderList(list) {
+export function renderItem(item) {
     const div = document.createElement('div');
     const p = document.createElement('p');
 
-    div.classList.add(list.complete ? 'complete' : 'incomplete');
-    div.classList.add('list');
+    div.classList.add(item.complete ? 'complete' : 'incomplete');
+    div.classList.add('item');
 
-    p.textContent = list.list;
+    p.textContent = item.item;
 
     div.append(p);
 
