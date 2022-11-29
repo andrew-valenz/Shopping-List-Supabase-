@@ -42,4 +42,27 @@ export async function signOutUser() {
     return (window.location.href = '../');
 }
 
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
+}
+
+export async function getListItems() {
+    const response = await client
+        .from('shopping')
+        .select()
+        .match({ user_id: client.auth.user().id });
+
+    return checkError(response);
+}
 /* Data functions */
+export async function createListItem(item, quantity) {
+    const response = await client.from('shopping').insert([{ item, quantity }]);
+
+    return checkError(response);
+}
+
+export async function deleteAllListItems() {
+    const response = await client.from('shopping').delete().match({ user_id: getUser().id });
+
+    return checkError(response);
+}
