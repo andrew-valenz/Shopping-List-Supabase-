@@ -9,22 +9,37 @@ export function getUser() {
     return client.auth.user();
 }
 
+export async function checkAuth() {
+    const user = getUser();
+
+    if (!user) location.replace('../');
+}
+
+export async function redirectIfLoggedIn() {
+    if (getUser()) {
+        location.replace('./list');
+    }
+}
 export async function signUpUser(email, password) {
-    return await client.auth.signUp({
+    const response = await client.auth.signUp({
         email,
         password,
     });
+    return response.user;
 }
 
 export async function signInUser(email, password) {
-    return await client.auth.signIn({
+    const response = await client.auth.signIn({
         email,
         password,
     });
+    return response.user;
 }
 
 export async function signOutUser() {
-    return await client.auth.signOut();
+    const response = await client.auth.signOut();
+
+    return (window.location.href = '../');
 }
 
 /* Data functions */
