@@ -36,8 +36,8 @@ export async function signInUser(email, password) {
     return response.user;
 }
 
-export async function signOutUser() {
-    const response = await client.auth.signOut();
+export async function logout() {
+    await client.auth.signOut();
 
     return (window.location.href = '../');
 }
@@ -57,6 +57,12 @@ export async function getListItems() {
 /* Data functions */
 export async function createListItem(item, quantity) {
     const response = await client.from('shopping').insert([{ item, quantity }]);
+
+    return checkError(response);
+}
+
+export async function buyListItem(someId) {
+    const response = await client.from('shopping').update({ bought: true }).match({ id: someId });
 
     return checkError(response);
 }
